@@ -22,7 +22,6 @@ export class PaginationComponent extends Component<IPaginationProps> {
     );
 
     this.selectedValue = this.getSelectedObject(data.next, data.previous);
-    console.log('-> this.selectedValue', this.selectedValue);
   }
 
   onPaginationClick(objNumber: number): void {

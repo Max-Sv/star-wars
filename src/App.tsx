@@ -7,6 +7,7 @@ import { PaginationComponent } from './components/pagination.component';
 import { PAGE_OBJECT_NUMBER } from './config';
 import { LocalStorageService } from './services/local-storage.service';
 import { IState } from './models/models';
+import { ErrorBoundaryComponent } from './components/error-boundary.component';
 
 interface IProps {}
 
@@ -30,43 +31,47 @@ export default class App extends Component<IProps, IState> {
 
   async componentDidMount() {
     if (this.localStorageService.data) {
-      await this.getStateValue(this.httpService.search, this.localStorageService.data);
+      await this.updateStateValue(this.httpService.search, this.localStorageService.data);
       return;
     }
-    await this.getStateValue(this.httpService.getData);
+    await this.updateStateValue(this.httpService.getData);
   }
   async onQueryChange({ value }: ISearchState) {
-    if (!value) {
-      return;
+    await this.updateStateValue(this.httpService.search, value);
+    if (value) {
+      this.localStorageService.setData(value);
     }
-
-    await this.getStateValue(this.httpService.search, value);
-    this.localStorageService.setData(value);
   }
   async onPaginationClick(url: string) {
-    await this.getStateValue(this.httpService.getData, url);
+    await this.updateStateValue(this.httpService.getData, url);
   }
 
-  async getStateValue(callback: (url?: string) => Promise<IState>, value?: string) {
+  async updateStateValue(callback: (url?: string) => Promise<IState>, value?: string) {
     this.setState({ ...initState });
     const res = await callback(value);
     this.setState({ ...res });
   }
 
-  render(): JSX.Element {
+  render() {
     return (
       <div>
         <section className="search-section">
-          <SearchComponent
-            queryChanged={this.onQueryChange.bind(this)}
-            initQuery={this.localStorageService.data}
-          ></SearchComponent>
+          <ErrorBoundaryComponent>
+            <SearchComponent
+              queryChanged={this.onQueryChange.bind(this)}
+              initQuery={this.localStorageService.data}
+            />
+          </ErrorBoundaryComponent>
         </section>
         <section className="result-section">
           {this.state.results ? (
-            this.state.results.map((data, index) => {
-              return <ResultComponent key={index} data={data}></ResultComponent>;
-            })
+            this.state.results.length ? (
+              this.state.results.map((data, index) => {
+                return <ResultComponent key={index} data={data}></ResultComponent>;
+              })
+            ) : (
+              <span>No data 😞</span>
+            )
           ) : (
             <span>loading...</span>
           )}
