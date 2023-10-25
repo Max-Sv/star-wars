@@ -1,30 +1,37 @@
-import { Component } from 'react';
+import { Component, ChangeEvent } from 'react';
 
 interface ISearchProps {
-  onInputChange: (val: { value: string }) => void;
+  queryChanged: (val: { value: string }) => void;
+  initQuery: string | null;
 }
-export class SearchComponent extends Component<ISearchProps, { value: string }> {
+
+export interface ISearchState {
+  value: string;
+}
+export class SearchComponent extends Component<ISearchProps, ISearchState> {
   constructor(props: ISearchProps) {
     super(props);
-    this.state = { value: '' };
+    this.state = { value: props.initQuery || '' };
+  }
+
+  onInputChange(event: ChangeEvent<HTMLInputElement>) {
+    this.setState({ value: event.target.value.trim() || '' });
   }
   render() {
     return (
-      <div>
-        <label htmlFor="name">Name :</label>
+      <div className="search-block">
+        <label htmlFor="name">Let{"'"}s try to find a character from star Wars :</label>
         <input
           type="text"
           id="name"
           name="name"
-          required
-          onChange={(e) => {
-            this.setState({ value: e.target.value.trim() });
-          }}
+          value={this.state.value}
+          onChange={this.onInputChange.bind(this)}
         />
         <button
           type="button"
           onClick={() => {
-            this.props.onInputChange(this.state);
+            this.props.queryChanged(this.state);
           }}
         >
           Search
