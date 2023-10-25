@@ -1,39 +1,14 @@
 import { Component } from 'react';
-
 import './App.css';
 import { HttpService } from './services/http.service';
-import { SearchComponent } from './components/search.component';
+import { ISearchState, SearchComponent } from './components/search.component';
 import { ResultComponent } from './components/result.component';
-import { OBJECT_NUMBER, PaginationComponent } from './components/pagination.component';
-
-const httpService = new HttpService();
-export interface IResult {
-  name: string;
-  birth_year: string;
-  eye_color: string;
-  gender: string;
-  hair_color: string;
-  height: string;
-  mass: string;
-  skin_color: string;
-  homeworld: string;
-  films: [];
-  species: [];
-  starships: [];
-  vehicles: [];
-  url: string;
-  created: string;
-  edited: string;
-}
+import { PaginationComponent } from './components/pagination.component';
+import { PAGE_OBJECT_NUMBER } from './config';
+import { LocalStorageService } from './services/local-storage.service';
+import { IState } from './models/models';
 
 interface IProps {}
-
-export interface IState {
-  results: IResult[] | null;
-  count: number;
-  next: string | null;
-  previous: string | null;
-}
 
 const initState = {
   results: null,
@@ -41,24 +16,35 @@ const initState = {
   next: null,
   previous: null,
 };
-export class App extends Component<IProps, IState> {
-  constructor(props: IProps) {
+export default class App extends Component<IProps, IState> {
+  constructor(
+    props: IProps,
+    private httpService: HttpService,
+    private localStorageService: LocalStorageService
+  ) {
     super(props);
+    this.httpService = new HttpService();
+    this.localStorageService = new LocalStorageService();
     this.state = { ...initState };
   }
 
   async componentDidMount() {
-    await this.getStateValue(httpService.getData);
+    if (this.localStorageService.data) {
+      await this.getStateValue(this.httpService.search, this.localStorageService.data);
+      return;
+    }
+    await this.getStateValue(this.httpService.getData);
   }
-  async onQueryChange({ value }: { value: string }) {
+  async onQueryChange({ value }: ISearchState) {
     if (!value) {
       return;
     }
 
-    await this.getStateValue(httpService.search, value);
+    await this.getStateValue(this.httpService.search, value);
+    this.localStorageService.setData(value);
   }
   async onPaginationClick(url: string) {
-    await this.getStateValue(httpService.getData, url);
+    await this.getStateValue(this.httpService.getData, url);
   }
 
   async getStateValue(callback: (url?: string) => Promise<IState>, value?: string) {
@@ -67,11 +53,14 @@ export class App extends Component<IProps, IState> {
     this.setState({ ...res });
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div>
         <section className="search-section">
-          <SearchComponent onInputChange={this.onQueryChange.bind(this)}></SearchComponent>
+          <SearchComponent
+            queryChanged={this.onQueryChange.bind(this)}
+            initQuery={this.localStorageService.data}
+          ></SearchComponent>
         </section>
         <section className="result-section">
           {this.state.results ? (
@@ -82,7 +71,7 @@ export class App extends Component<IProps, IState> {
             <span>loading...</span>
           )}
         </section>
-        {this.state.results && this.state.count > OBJECT_NUMBER ? (
+        {this.state.results && this.state.count > PAGE_OBJECT_NUMBER ? (
           <PaginationComponent
             data={this.state}
             paginationClick={this.onPaginationClick.bind(this)}

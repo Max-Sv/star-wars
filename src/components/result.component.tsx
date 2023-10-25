@@ -1,23 +1,18 @@
 import { Component } from 'react';
-import './result.css';
-import { IResult } from '../App';
+import { IResult } from '../models/models';
 export class ResultComponent extends Component<{ data: IResult }> {
-  // constructor(props: IResult) {
-  //   console.log('-> 111props', props);
-  //   super(props);
-  //   // this.state = null;
-  // }
-  // componentWillUnmount() {
-  //   alert('The component named Child is about to be unmounted.');
-  // }
-
   render() {
     return (
       <article>
-        <p>Name: {this.props.data.name}</p>
-        <p>{this.props.data.gender}</p>
-        <p>{this.props.data.birth_year}</p>
-        <p>{this.props.data.height}</p>
+        <h4>{this.props.data.name}</h4>
+        <ul title={this.props.data.name}>
+          <li>Gender: {this.props.data.gender}</li>
+          <li>Birth year: {this.props.data.birth_year}</li>
+          <li>Height: {this.props.data.height}</li>
+          <li>Eye color: {this.props.data.eye_color}</li>
+          <li>Mass: {this.props.data.mass}</li>
+          <li>Skin color: {this.props.data.skin_color}</li>
+        </ul>
       </article>
     );
   }

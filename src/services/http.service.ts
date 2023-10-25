@@ -1,30 +1,14 @@
-import { IState } from '../App';
+import { API_URL, API_URL_CONFIG } from '../config';
+import { IState } from '../models/models';
 
-export const API_URL = 'https://swapi.dev/api/people/';
 export class HttpService {
-  constructor() {
-    // this.getData = this.getData.bind(this);
-  }
-  async getData(url = API_URL) {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  async getData(url: string = API_URL): Promise<IState> {
+    const response = await fetch(url, API_URL_CONFIG);
     return (await response.json()) as IState;
   }
 
-  async search(query: string = '') {
-    if (!query) {
-      return;
-    }
-    const response = await fetch(`${API_URL}?search=${query}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  async search(query: string = ''): Promise<IState> {
+    const response = await fetch(`${API_URL}?search=${query}`, API_URL_CONFIG);
     return (await response.json()) as IState;
   }
 }

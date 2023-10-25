@@ -1,22 +1,23 @@
 import { Component } from 'react';
-import { IState } from '../App';
-import { API_URL } from '../services/http.service';
+import { API_URL, PAGE_OBJECT_NUMBER } from '../config';
+import { IState } from '../models/models';
 
-export const OBJECT_NUMBER = 10;
-interface Pagination extends Omit<IState, 'results'> {}
-export class PaginationComponent extends Component<{
+interface IPaginationData extends Omit<IState, 'results'> {}
+
+interface IPaginationProps {
   paginationClick: (url: string) => void;
-  data: Pagination;
-}> {
+  data: IPaginationData;
+}
+
+export class PaginationComponent extends Component<IPaginationProps> {
   paginationArray: number[];
   selectedValue: number;
 
-  constructor(props: { paginationClick: (url: string) => void; data: Pagination }) {
-    console.log('-> 111props', props);
+  constructor(props: IPaginationProps) {
     super(props);
     const { data } = props;
     this.paginationArray = Array.from(
-      { length: Math.ceil(data.count / OBJECT_NUMBER) },
+      { length: Math.ceil(data.count / PAGE_OBJECT_NUMBER) },
       (_, i) => i + 1
     );
 
@@ -26,8 +27,6 @@ export class PaginationComponent extends Component<{
 
   onPaginationClick(objNumber: number): void {
     const updatedUrl = this.props.data.next || this.props.data.previous || API_URL;
-
-    // this.props.paginationClick(`https://swapi.dev/api/people/?page=${objNumber}`);
     this.props.paginationClick(updatedUrl.replace(/page=\d+/, `page=${objNumber}`));
   }
   getSelectedObject(next: string | null, prev: string | null): number {
@@ -41,7 +40,7 @@ export class PaginationComponent extends Component<{
 
     return 1;
   }
-  onNextPrevClick(urlKey: keyof Pagination): void {
+  onNextPrevClick(urlKey: keyof IPaginationData): void {
     if (!this.props.data[urlKey]) {
       return;
     }
