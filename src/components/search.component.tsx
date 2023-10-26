@@ -13,6 +13,8 @@ export class SearchComponent extends Component<ISearchProps, ISearchState> {
   constructor(props: ISearchProps) {
     super(props);
     this.state = { value: props.initQuery || '', error: false };
+    this.onInputChange = this.onInputChange.bind(this);
+    this.handleErrorButtonClick = this.handleErrorButtonClick.bind(this);
   }
 
   onInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -35,7 +37,7 @@ export class SearchComponent extends Component<ISearchProps, ISearchState> {
             id="name"
             name="name"
             value={this.state.value}
-            onChange={this.onInputChange.bind(this)}
+            onChange={this.onInputChange}
           />
           <button
             type="button"
@@ -51,7 +53,7 @@ export class SearchComponent extends Component<ISearchProps, ISearchState> {
           className="error-button"
           type="button"
           title="click to get error"
-          onClick={this.handleErrorButtonClick.bind(this)}
+          onClick={this.handleErrorButtonClick}
         >
           Error
         </button>

@@ -1,6 +1,9 @@
 import { Component } from 'react';
 import { IResult } from '../models/models';
 export class ResultComponent extends Component<{ data: IResult }> {
+  constructor(props: { data: IResult }) {
+    super(props);
+  }
   render() {
     const { name, mass, eye_color, skin_color, height, birth_year, gender } = this.props.data;
     return (

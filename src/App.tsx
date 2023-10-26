@@ -27,6 +27,7 @@ export default class App extends Component<IProps, IState> {
     this.httpService = new HttpService();
     this.localStorageService = new LocalStorageService();
     this.state = { ...initState };
+    this.onPaginationClick = this.onPaginationClick.bind(this);
   }
 
   async componentDidMount() {
@@ -80,7 +81,7 @@ export default class App extends Component<IProps, IState> {
         {this.state.results && this.state.count > PAGE_OBJECT_NUMBER ? (
           <PaginationComponent
             data={this.state}
-            paginationClick={this.onPaginationClick.bind(this)}
+            paginationClick={this.onPaginationClick}
           ></PaginationComponent>
         ) : null}
       </ErrorBoundaryComponent>
