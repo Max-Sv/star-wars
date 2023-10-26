@@ -1,5 +1,5 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
-export class ErrorComponent extends Component {
+import { Component, ErrorInfo, PureComponent, ReactNode } from 'react';
+export class ErrorComponent extends PureComponent {
   render() {
     return (
       <section className="survival blood">
