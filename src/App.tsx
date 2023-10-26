@@ -37,10 +37,13 @@ export default class App extends Component<IProps, IState> {
     await this.updateStateValue(this.httpService.getData);
   }
   async onQueryChange({ value }: ISearchState) {
-    await this.updateStateValue(this.httpService.search, value);
-    if (value) {
-      this.localStorageService.setData(value);
+    if (!value) {
+      await this.updateStateValue(this.httpService.getData);
+      return;
     }
+
+    await this.updateStateValue(this.httpService.search, value);
+    this.localStorageService.setData(value);
   }
   async onPaginationClick(url: string) {
     await this.updateStateValue(this.httpService.getData, url);
@@ -54,14 +57,12 @@ export default class App extends Component<IProps, IState> {
 
   render() {
     return (
-      <div>
+      <ErrorBoundaryComponent>
         <section className="search-section">
-          <ErrorBoundaryComponent>
-            <SearchComponent
-              queryChanged={this.onQueryChange.bind(this)}
-              initQuery={this.localStorageService.data}
-            />
-          </ErrorBoundaryComponent>
+          <SearchComponent
+            queryChanged={this.onQueryChange.bind(this)}
+            initQuery={this.localStorageService.data}
+          />
         </section>
         <section className="result-section">
           {this.state.results ? (
@@ -82,7 +83,7 @@ export default class App extends Component<IProps, IState> {
             paginationClick={this.onPaginationClick.bind(this)}
           ></PaginationComponent>
         ) : null}
-      </div>
+      </ErrorBoundaryComponent>
     );
   }
 }
