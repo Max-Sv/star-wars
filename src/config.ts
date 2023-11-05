@@ -1,4 +1,4 @@
-export const API_URL = 'https://swapi.dev/api/people/';
+export const API_URL = 'https://api.punkapi.com/v2/beers/';
 export const API_URL_CONFIG = {
   method: 'GET',
   headers: {
