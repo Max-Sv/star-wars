@@ -15,9 +15,4 @@ export interface IResult {
 
 export interface IState {
   results: IResult[] | null;
-  count: number;
-  next: string | null;
-  previous: string | null;
-  currentPage: number | null;
-  itemPerPage: number | null;
 }

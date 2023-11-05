@@ -17,7 +17,6 @@ export class HttpService {
   }
 
   async search(query: string = ''): Promise<IResult[]> {
-    console.log('-> query', query);
     const response = await fetch(`${API_URL}?beer_name=${query}`, API_URL_CONFIG);
     return (await response.json()) as IResult[];
   }

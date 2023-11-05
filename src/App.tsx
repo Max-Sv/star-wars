@@ -11,11 +11,6 @@ import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-
 
 const initState = {
   results: null,
-  count: 0,
-  next: null,
-  previous: null,
-  currentPage: null,
-  itemPerPage: null,
 };
 
 enum UrlType {
