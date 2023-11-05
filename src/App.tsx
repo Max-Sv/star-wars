@@ -40,7 +40,6 @@ export default function App() {
   });
 
   useEffect(() => {
-    console.log('-> searchParams', searchParams);
     const { currentPage, itemPerPage, searchValue, type } = url;
     setMainData({ ...initState });
     const fetchData = async () => {
@@ -82,6 +81,7 @@ export default function App() {
   };
 
   const navigateToLeftSectionOnly = () => {
+    console.log('-> searchParams', searchParams);
     navigate({ pathname: `/`, search: location.search });
   };
 
