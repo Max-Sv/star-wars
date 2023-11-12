@@ -14,5 +14,5 @@ export interface IResult {
 }
 
 export interface IState {
-  results: IResult[] | null;
+  cards: IResult[] | null;
 }

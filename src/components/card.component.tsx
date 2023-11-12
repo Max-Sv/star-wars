@@ -1,7 +1,7 @@
 import { IResult } from '../models/models';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-export function ResultComponent({ data, search }: { data: IResult; search: string }) {
+export function CardComponent({ data, search }: { data: IResult; search: string }) {
   const navigate = useNavigate();
 
   function handleClick() {

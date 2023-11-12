@@ -1,36 +1,25 @@
 import React from 'react';
-interface IPaginationProps {
-  paginationClick: (v: number) => void;
-  perPageSelected: (v: number) => void;
-  page: number;
-  itemPerPage: number;
-}
+import { UrlType, useDataContext } from '../context/data.context';
 
-export function PaginationComponent({
-  page,
-  itemPerPage,
-  paginationClick,
-  perPageSelected,
-}: IPaginationProps) {
+export const PaginationComponent = () => {
+  const { url, setUrl } = useDataContext();
+
   const options: { value: number; text: string }[] = [
     { value: 5, text: '5' },
     { value: 10, text: '10' },
     { value: 20, text: '20' },
     { value: 40, text: '40' },
   ];
-  const onNextPrevClick = (newPage: number): void => {
-    paginationClick(newPage);
-  };
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    perPageSelected(+event.target.value);
+    setUrl({ ...url, type: UrlType.common, itemPerPage: +event.target.value, currentPage: 1 });
   };
 
   return (
     <>
       <div className="per-page-block">
         <label htmlFor="per-page">Items Per Page: </label>
-        <select value={itemPerPage} onChange={handleChange}>
+        <select value={url.itemPerPage} onChange={handleChange}>
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.text}
@@ -42,9 +31,9 @@ export function PaginationComponent({
         <button
           type="button"
           title="previous page"
-          disabled={page <= 1}
+          disabled={url.currentPage <= 1}
           onClick={() => {
-            onNextPrevClick(--page);
+            setUrl({ ...url, type: UrlType.common, currentPage: --url.currentPage });
           }}
         >
           {'<'}
@@ -57,13 +46,13 @@ export function PaginationComponent({
             event.preventDefault();
           }}
         >
-          {page}
+          {url.currentPage}
         </button>
         <button
           type="button"
           title="next page"
           onClick={() => {
-            onNextPrevClick(++page);
+            setUrl({ ...url, type: UrlType.common, currentPage: ++url.currentPage });
           }}
         >
           {'>'}
@@ -71,4 +60,4 @@ export function PaginationComponent({
       </div>
     </>
   );
-}
+};

@@ -1,36 +1,32 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { LoaderFunction, useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { HttpService } from '../services/http.service';
 import { IResult } from '../models/models';
 import ScrollToTop from '../helpers/scroll-to-top';
+import httpService from '../services/http.service';
 
-export function ItemComponent() {
+export const ItemComponent = () => {
   const [item, setItem] = useState<IResult | null>(null);
-
-  const httpService = new HttpService();
-  const location = useLocation();
+  const data = useLoaderData() as IResult;
   const navigate = useNavigate();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === 'loading';
 
   useEffect(() => {
-    setItem(null);
-    const id = location.pathname.split('/')[2];
+    setItem(data);
+    console.log('-> data', data);
+    console.log('-> navigation', navigation);
+  }, [data]);
 
-    const fetchItem = async () => {
-      return httpService.getItem(id);
-    };
-
-    fetchItem().then((res) => setItem(res));
-  }, [location.pathname]);
-
-  const onClickHandler = () => {
-    navigate({ pathname: `/`, search: location.search });
-  };
   return (
     <section className="item-section">
       <ScrollToTop />
-      {item ? (
+      {item && !isLoading ? (
         <div className="item-block">
-          <button className="active" type="button" onClick={onClickHandler}>
+          <button
+            className="active"
+            type="button"
+            onClick={() => navigate({ pathname: `/`, search: location.search })}
+          >
             Close
           </button>
           <h2 className="item-title">{item.name}</h2>
@@ -57,4 +53,12 @@ export function ItemComponent() {
       )}
     </section>
   );
-}
+};
+export const itemLoader: LoaderFunction = async ({ params }) => {
+  // const httpService = new HttpService();
+  const { itemId } = params;
+  if (!itemId) {
+    return;
+  }
+  return httpService.getItem(itemId);
+};
