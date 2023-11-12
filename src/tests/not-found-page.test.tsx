@@ -8,15 +8,14 @@ import { router } from '../router';
 describe('NotFoundPage', async () => {
   it('renders NotFoundPage for invalid route', async () => {
     vi.mock('react-router-dom', async () => {
-      const actual = await vi.importActual('react-router-dom');
+      const actual: NonNullable<unknown> = await vi.importActual('react-router-dom');
       return {
         ...actual,
         BrowserRouter: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-        useRoutes: () => router, // Provide your router here
+        useRoutes: () => router,
       };
     });
 
-    // Render your app with the BrowserRouter and navigate to an invalid route
     render(
       <MemoryRouter initialEntries={['/test']}>
         <NotFoundPage />

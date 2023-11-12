@@ -6,7 +6,7 @@ import { IResult } from '../models/models';
 import { MemoryRouter } from 'react-router-dom';
 
 vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
+  const actual: NonNullable<unknown> = await vi.importActual('react-router-dom');
   return {
     ...actual,
     useLocation: () => ({
@@ -42,7 +42,7 @@ describe('CardListComponent', async () => {
 
     render(
       <MemoryRouter>
-        <DataContext.Provider value={{ cards: mockCards }}>
+        <DataContext.Provider value={{ cards: mockCards } as unknown as DataContext}>
           <CardListComponent />
         </DataContext.Provider>
       </MemoryRouter>
@@ -68,7 +68,7 @@ describe('CardListComponent', async () => {
   it('renders "No data" when cards array is empty', () => {
     render(
       <MemoryRouter>
-        <DataContext.Provider value={{ cards: [] }}>
+        <DataContext.Provider value={{ cards: [] } as unknown as DataContext}>
           <CardListComponent />
         </DataContext.Provider>
       </MemoryRouter>
@@ -80,7 +80,7 @@ describe('CardListComponent', async () => {
   it('renders "loading..." when cards array is undefined', () => {
     render(
       <MemoryRouter>
-        <DataContext.Provider value={{ cards: undefined }}>
+        <DataContext.Provider value={{ cards: undefined } as unknown as DataContext}>
           <CardListComponent />
         </DataContext.Provider>
       </MemoryRouter>

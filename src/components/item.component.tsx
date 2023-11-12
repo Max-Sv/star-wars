@@ -13,8 +13,6 @@ export const ItemComponent = () => {
 
   useEffect(() => {
     setItem(data);
-    console.log('-> data', data);
-    console.log('-> navigation', navigation);
   }, [data]);
 
   return (
@@ -55,7 +53,6 @@ export const ItemComponent = () => {
   );
 };
 export const itemLoader: LoaderFunction = async ({ params }) => {
-  // const httpService = new HttpService();
   const { itemId } = params;
   if (!itemId) {
     return;

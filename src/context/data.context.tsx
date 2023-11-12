@@ -2,7 +2,7 @@ import { IResult } from '../models/models';
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { LocalStorageService } from '../services/local-storage.service';
-import httpService from "../services/http.service";
+import httpService from '../services/http.service';
 // import { HttpService } from '../services/http.service';
 export enum UrlType {
   init,
@@ -14,7 +14,7 @@ export interface IUrl {
   itemPerPage: number;
   type: UrlType;
 }
-interface DataContext {
+export interface DataContext {
   cards: IResult[] | null;
   searchValue: null | string;
   url: IUrl;
@@ -66,7 +66,6 @@ export const DataProvider = (props: PropsWithChildren<object>) => {
     };
 
     fetchData().then((response) => {
-
       setSearchParams(
         (type === UrlType.search || type === UrlType.init) && searchValue
           ? { search: searchValue }
@@ -77,7 +76,6 @@ export const DataProvider = (props: PropsWithChildren<object>) => {
   }, [url]);
 
   useEffect(() => {
-
     if (!searchValue) {
       setUrl({ ...url, type: UrlType.common, currentPage: 1 });
       return;

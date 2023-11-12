@@ -6,16 +6,17 @@ import { MemoryRouter } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
+  const actual: NonNullable<unknown> = await vi.importActual('react-router-dom');
   return {
     ...actual,
-    BrowserRouter: ({ children }: { children: React.ReactNode }) => <div>{children}</div>, // Mock BrowserRouter
-    useNavigate: () => vi.fn(), // Mock useNavigate
+    BrowserRouter: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+    useNavigate: () => mockedNavigate,
   };
 });
+const mockedNavigate = vi.fn();
 
 describe('CardComponent', async () => {
-  const mockData: IResult = {
+  const mockData = {
     id: 1,
     name: 'Beer Name',
     tagline: 'Tagline',
@@ -24,9 +25,9 @@ describe('CardComponent', async () => {
     ebc: 10,
     srm: 15,
     ph: 4.5,
-  };
+  } as unknown as IResult;
 
-  it('renders CardComponent correctly', () => {
+  test('renders CardComponent correctly', () => {
     render(
       <MemoryRouter>
         <CardComponent data={mockData} search="exampleSearch" />
@@ -41,9 +42,7 @@ describe('CardComponent', async () => {
     expect(screen.getByText('Ph: 4.5')).toBeInTheDocument();
   });
 
-  it('calls navigate when clicked', () => {
-    const navigateMock = vi.fn((test) => console.log('-> test', test));
-
+  test('calls navigate when clicked', () => {
     render(
       <BrowserRouter>
         <CardComponent data={mockData} search="exampleSearch" />
@@ -51,8 +50,7 @@ describe('CardComponent', async () => {
     );
     fireEvent.click(screen.getByRole('article'));
 
-    // Ensure that the navigate function is called with the correct arguments
     const expectedArgs = { pathname: '/item/1', search: 'exampleSearch' };
-    expect(navigateMock).toHaveBeenCalledWith(expectedArgs);
+    expect(mockedNavigate).toHaveBeenCalledWith(expectedArgs);
   });
 });
