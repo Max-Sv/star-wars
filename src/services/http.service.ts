@@ -10,7 +10,7 @@ class HttpService {
     itemPerPage: number;
   }): Promise<IResult[]> {
     const response = await fetch(
-      `${API_URL}?page=${currentPage || 1}&per_page=${itemPerPage || 20}`,
+      `${API_URL}?page=${currentPage}&per_page=${itemPerPage}`,
       API_URL_CONFIG
     );
     return (await response.json()) as IResult[];
@@ -29,4 +29,4 @@ class HttpService {
   }
 }
 
-export default new HttpService()
+export default new HttpService();

@@ -1,26 +1,29 @@
 import { ChangeEvent, useState } from 'react';
-import { useDataContext } from '../context/data.context';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { setSearchValue, useSearchCardsQuery } from '../store/search-value.slice';
 
 export const SearchComponent = () => {
-  const { searchValue, setSearchValue } = useDataContext();
-  const [searchData, setSearchData] = useState<string>(searchValue || '');
+  const searchValue = useAppSelector(({ cards }) => cards.searchValue);
+  const dispatch = useAppDispatch();
+  const [searchData, setSearchData] = useState<string>(searchValue);
+  useSearchCardsQuery(searchValue);
 
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.trim();
     setSearchData(value);
+  };
+
+  const handleClick = () => {
+    // test(searchData || '');
+
+    dispatch(setSearchValue(searchData || ''));
   };
 
   return (
     <div className="search-block">
       <label htmlFor="name">Let{"'"}s try to find a BEER:</label>
-      <input type="text" id="name" name="name" value={searchData} onChange={onInputChange} />
-      <button
-        type="button"
-        title="search!"
-        onClick={() => {
-          setSearchValue(searchData);
-        }}
-      >
+      <input type="text" id="name" name="name" value={searchData} onChange={handleChange} />
+      <button type="button" title="search!" onClick={handleClick}>
         Search
       </button>
     </div>
