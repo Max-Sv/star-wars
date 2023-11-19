@@ -1,17 +1,22 @@
-// import { configureStore } from '@reduxjs/toolkit';
-// import counterReducer from './search-value.slice';
-//
-// export const store = configureStore({
-//   reducer: {
-//     searchValue: counterReducer,
-//     cards:
-//     // [apiSlice.reducerPath]: apiSlice.reducer,
-//   },
-//   // middleware: (getDefaultMiddleware) => {
-//   //   return getDefaultMiddleware().concat(apiSlice.middleware);
-//   // },
-// });
-// // Infer the `RootState` and `AppDispatch` types from the store itself
-// export type RootState = ReturnType<typeof store.getState>;
-// // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-// export type AppDispatch = typeof store.dispatch;
+import { combineReducers, configureStore, PreloadedState } from '@reduxjs/toolkit';
+import { apiCard } from './slices/card-api.slice';
+import { cardsSlice } from './slices/card.slice';
+
+const rootReducer = combineReducers({
+  cards: cardsSlice.reducer,
+  [apiCard.reducerPath]: apiCard.reducer,
+});
+export function setupStore(preloadedState?: PreloadedState<RootState>) {
+  return configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => {
+      return getDefaultMiddleware().concat(apiCard.middleware);
+    },
+    preloadedState,
+  });
+}
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+
+export type AppDispatch = AppStore['dispatch'];

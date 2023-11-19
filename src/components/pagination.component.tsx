@@ -1,11 +1,10 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { setCurrentPage, setItemPerPage, useFetchCardsQuery } from '../store/search-value.slice';
+import { setCurrentPage, setItemPerPage } from '../store/slices/card.slice';
 
 export const PaginationComponent = () => {
   const dispatch = useAppDispatch();
   const url = useAppSelector(({ cards }) => cards.url);
-  useFetchCardsQuery({ currentPage: url?.currentPage, itemPerPage: url?.itemPerPage });
 
   const options: { value: number; text: string }[] = [
     { value: 5, text: '5' },
@@ -15,7 +14,6 @@ export const PaginationComponent = () => {
   ];
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    // setUrl({ ...url, type: UrlType.common, itemPerPage: +event.target.value, currentPage: 1 });
     dispatch(setItemPerPage(+event.target.value));
   };
 

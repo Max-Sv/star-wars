@@ -4,11 +4,9 @@ import { SearchComponent } from './components/search.component';
 import { PaginationComponent } from './components/pagination.component';
 import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { CardListComponent } from './components/card-list.component';
-// import { DataProvider } from './context/data.context';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { searchCards, setUrl, UrlType, useFetchCardsQuery } from './store/search-value.slice';
-// import httpService from './services/http.service';
-// import { UrlType } from './context/data.context';
+import { useFetchCardsQuery } from './store/slices/card-api.slice';
+import { setUrl } from './store/slices/card.slice';
 
 export default function App() {
   const navigate = useNavigate();
@@ -16,66 +14,39 @@ export default function App() {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const url = useAppSelector(({ cards }) => cards.url);
-  console.log('-> url', url);
+  useFetchCardsQuery({ currentPage: url?.currentPage, itemPerPage: url?.itemPerPage });
+
   const searchValue = useAppSelector(({ cards }) => cards.searchValue);
-  // useCardListQuery({ currentPage: 1, itemPerPage: 20 });
-  const currentPage = searchParams?.get('page') || 1;
-  const itemPerPage = searchParams?.get('per_page') || 20;
-  // const { data = [], isLoading } = useFetchCardsQuery({ currentPage, itemPerPage });
+
   const navigateToLeftSectionOnly = () => {
     navigate({ pathname: `/`, search: location.search });
   };
 
-  // useEffect(() => {
-  //   if (!searchValue) {
-  //     dispatch(
-  //       setUrl({
-  //         currentPage: 1,
-  //         itemPerPage: 20,
-  //         type: UrlType.common,
-  //       })
-  //     );
-  //     return;
-  //   }
-  //   dispatch(searchCards());
-  //   // dispatch(fetchCards());
-  //   // setSearchParams({ page: String(currentPage), per_page: String(itemPerPage) });
-  //   setSearchParams({ search: searchValue });
-  // }, [searchValue]);
+  useEffect(() => {
+    if (!searchValue) {
+      dispatch(
+        setUrl({
+          currentPage: 1,
+          itemPerPage: 20,
+        })
+      );
+      setSearchParams({ page: String(url?.currentPage), per_page: String(url?.itemPerPage) });
+      return;
+    }
 
-  // useEffect(() => {
-  //   const currentPage = searchParams?.get('page') || 1;
-  //   const itemPerPage = searchParams?.get('per_page') || 20;
-  //
-  //   dispatch(
-  //     setUrl({
-  //       currentPage: Number(currentPage),
-  //       itemPerPage: Number(itemPerPage),
-  //       type: UrlType.init,
-  //     })
-  //   );
-  //   // useFetchCardsQuery({ currentPage, itemPerPage });
-  //
-  //   // useCardListQuery({ currentPage: 1, itemPerPage: 20 });
-  // }, []);
-  //
-  // useEffect(() => {
-  //   // if (!url) {
-  //   //   return;
-  //   // }
-  //   // // const searchValue = searchParams?.get('search') || '';
-  //   // // console.log('-> 55searchValue', searchValue);
-  //   // // if (searchValue) {
-  //   // //   return;
-  //   // // }
-  //   // const { currentPage, itemPerPage } = url;
-  //   // dispatch(fetchCards());
-  //   // setSearchParams({ page: String(currentPage), per_page: String(itemPerPage) });
-  // }, [url]);
+    setSearchParams({ search: searchValue });
+  }, [searchValue]);
+
+  useEffect(() => {
+    if (!url) {
+      return;
+    }
+
+    setSearchParams({ page: String(url.currentPage), per_page: String(url.itemPerPage) });
+  }, [url]);
 
   return (
     <>
-      {/*<DataProvider>*/}
       <section className="search-section">
         <SearchComponent />
       </section>
@@ -91,7 +62,6 @@ export default function App() {
         </div>
         <Outlet />
       </section>
-      {/*</DataProvider>*/}
     </>
   );
 }

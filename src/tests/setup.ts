@@ -1,9 +1,12 @@
 import { afterEach } from 'vitest';
-import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
-import { vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { IResult } from '../models/models';
+import { setupStore } from '../store/store';
+
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+import { apiCard } from '../store/slices/card-api.slice';
 
 const items = (page = 1): IResult[] =>
   Array.from(Array(5).keys()).map(
@@ -24,35 +27,27 @@ const items = (page = 1): IResult[] =>
       }) as unknown as IResult
   );
 
-vi.mock('../services/http.service.ts', () => {
-  return {
-    __esModule: true,
-    default: {
-      async getData({
-        currentPage,
-        itemPerPage,
-      }: {
-        currentPage: number;
-        itemPerPage: number;
-      }): Promise<IResult[]> {
-        // const page = currentPage || 1;
-        console.log('-> itemPerPage', itemPerPage);
-        console.log('-> currentPage', currentPage);
+const store = setupStore({});
+export const handlers = [
+  rest.get('https://api.punkapi.com/v2/beers', (req, res, ctx) => {
+    // successful response
+    return res(ctx.status(200), ctx.json(items(1)), ctx.delay(30));
+  }),
+];
 
-        return items(1);
-      },
-      async search(query: string): Promise<IResult> {
-        console.log('-> query', query);
-        return items(1)[3];
-      },
-      async getItem(id: number): Promise<IResult | undefined> {
-        console.log('!!!-> id', id);
-        return items(1).find((item) => item.id === id);
-      },
-    },
-  };
+export const server = setupServer(...handlers);
+// Establish API mocking before all tests.
+beforeAll(() => {
+  server.listen();
 });
 
+// Reset any request handlers that we may add during the tests,
+// so they don't affect other tests.
 afterEach(() => {
-  cleanup();
+  server.resetHandlers();
+  // This is the solution to clear RTK Query cache after each test
+  store.dispatch(apiCard.util.resetApiState());
 });
+
+// Clean up after the tests are finished.
+afterAll(() => server.close());
