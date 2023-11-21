@@ -15,8 +15,6 @@ export const SearchComponent = () => {
   };
 
   const handleClick = () => {
-    // test(searchData || '');
-
     dispatch(setSearchValue(searchData || ''));
   };
 

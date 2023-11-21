@@ -1,12 +1,10 @@
-import { afterEach } from 'vitest';
-import '@testing-library/jest-dom/vitest';
-import '@testing-library/jest-dom/vitest';
 import { IResult } from '../models/models';
-import { setupStore } from '../store/store';
-
-import { rest } from 'msw';
+import * as matchers from '@testing-library/jest-dom/matchers';
+import { expect } from 'vitest';
+import '@testing-library/jest-dom';
+import { http, HttpResponse } from 'msw';
+import { API_URL } from '../config';
 import { setupServer } from 'msw/node';
-import { apiCard } from '../store/slices/card-api.slice';
 
 const items = (page = 1): IResult[] =>
   Array.from(Array(5).keys()).map(
@@ -27,27 +25,25 @@ const items = (page = 1): IResult[] =>
       }) as unknown as IResult
   );
 
-const store = setupStore({});
-export const handlers = [
-  rest.get('https://api.punkapi.com/v2/beers', (req, res, ctx) => {
-    // successful response
-    return res(ctx.status(200), ctx.json(items(1)), ctx.delay(30));
+expect.extend(matchers);
+
+const handlers = [
+  http.get(`${API_URL}?page=1&per_page=20`, () => {
+    return HttpResponse.json(items(1));
+  }),
+
+  http.get(`${API_URL}item/1?page=1&per_page=20`, () => {
+    return HttpResponse.json(items(1)[0]);
   }),
 ];
 
 export const server = setupServer(...handlers);
-// Establish API mocking before all tests.
 beforeAll(() => {
   server.listen();
 });
 
-// Reset any request handlers that we may add during the tests,
-// so they don't affect other tests.
 afterEach(() => {
   server.resetHandlers();
-  // This is the solution to clear RTK Query cache after each test
-  store.dispatch(apiCard.util.resetApiState());
 });
 
-// Clean up after the tests are finished.
 afterAll(() => server.close());

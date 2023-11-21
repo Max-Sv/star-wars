@@ -15,6 +15,7 @@ export default function App() {
   const dispatch = useAppDispatch();
   const url = useAppSelector(({ cards }) => cards.url);
   useFetchCardsQuery({ currentPage: url?.currentPage, itemPerPage: url?.itemPerPage });
+  const isLoading = useAppSelector((state) => state.cards.loading);
 
   const searchValue = useAppSelector(({ cards }) => cards.searchValue);
 
@@ -53,12 +54,16 @@ export default function App() {
       <section className="main-section">
         <div className="left-section">
           {location.pathname.includes('item') ? (
-            <div className="wall-block" onClick={navigateToLeftSectionOnly}></div>
+            <div
+              className="wall-block"
+              data-testid="wall"
+              onClick={navigateToLeftSectionOnly}
+            ></div>
           ) : null}
           <div className="result-section">
             <CardListComponent />
           </div>
-          {!searchParams?.get('search') ? <PaginationComponent /> : null}
+          {!searchParams?.get('search') || !isLoading ? <PaginationComponent /> : null}
         </div>
         <Outlet />
       </section>

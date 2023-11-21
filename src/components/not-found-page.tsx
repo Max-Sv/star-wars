@@ -5,7 +5,7 @@ export const NotFoundPage = () => {
   return (
     <div className="not-found">
       <p>Page is not found</p>
-      <p>`path: {location.pathname}`</p>
+      <p data-testid="not-found">`path: {location.pathname}`</p>
     </div>
   );
 };

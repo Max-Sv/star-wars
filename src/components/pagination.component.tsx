@@ -23,7 +23,7 @@ export const PaginationComponent = () => {
         <>
           <div className="per-page-block">
             <label htmlFor="per-page">Items Per Page: </label>
-            <select value={url?.itemPerPage} onChange={handleChange}>
+            <select data-testid="per-page" value={url?.itemPerPage} onChange={handleChange}>
               {options.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.text}

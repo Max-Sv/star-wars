@@ -69,7 +69,7 @@ describe('ItemComponent', async () => {
     expect(screen.getByText('loading...')).toBeInTheDocument();
   });
 
-  it('calls navigate when Close button is clicked', async () => {
+  test('calls navigate when Close button is clicked', async () => {
     const mockedNavigate = vi.fn();
 
     vi.spyOn(routedDom, 'useNavigate').mockImplementation(() => mockedNavigate);
