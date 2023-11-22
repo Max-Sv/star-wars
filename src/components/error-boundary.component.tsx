@@ -1,13 +1,10 @@
-import { Component, ErrorInfo, PureComponent, ReactNode } from 'react';
-export class ErrorComponent extends PureComponent {
-  render() {
-    return (
-      <section className="survival blood">
-        <h1>Something went wrong</h1>
-        <h1>Happy Halloween!</h1>
-      </section>
-    );
-  }
+import { Component, ErrorInfo, ReactNode } from 'react';
+function ErrorComponent() {
+  return (
+    <section className="survival blood">
+      <h1>Something went wrong</h1>
+    </section>
+  );
 }
 
 interface IErrorBoundaryProps {

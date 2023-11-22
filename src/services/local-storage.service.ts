@@ -1,6 +1,6 @@
 import { STORAGE_KEY } from '../config';
 
-export class LocalStorageService {
+class LocalStorageService {
   readonly data: string | null = null;
   constructor() {
     this.data = this.getData();
@@ -14,3 +14,5 @@ export class LocalStorageService {
     return localStorage.getItem(STORAGE_KEY);
   }
 }
+
+export default new LocalStorageService();

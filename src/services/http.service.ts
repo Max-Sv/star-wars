@@ -1,14 +1,13 @@
 import { API_URL, API_URL_CONFIG } from '../config';
-import { IState } from '../models/models';
+import { IResult } from '../models/models';
 
-export class HttpService {
-  async getData(url: string = API_URL): Promise<IState> {
-    const response = await fetch(url, API_URL_CONFIG);
-    return (await response.json()) as IState;
-  }
+class HttpService {
+  async getItem(id: string = ''): Promise<IResult> {
+    const response = await fetch(`${API_URL}${id}`, API_URL_CONFIG);
+    const item = (await response.json()) as IResult[];
 
-  async search(query: string = ''): Promise<IState> {
-    const response = await fetch(`${API_URL}?search=${query}`, API_URL_CONFIG);
-    return (await response.json()) as IState;
+    return item[0];
   }
 }
+
+export default new HttpService();

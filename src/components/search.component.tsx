@@ -1,63 +1,30 @@
-import { Component, ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { useSearchCardsQuery } from '../store/slices/card-api.slice';
+import { setSearchValue } from '../store/slices/card.slice';
 
-interface ISearchProps {
-  queryChanged: (val: ISearchState) => void;
-  initQuery: string | null;
-}
+export const SearchComponent = () => {
+  const searchValue = useAppSelector(({ cards }) => cards.searchValue);
+  const dispatch = useAppDispatch();
+  const [searchData, setSearchData] = useState<string>(searchValue);
+  useSearchCardsQuery(searchValue);
 
-export interface ISearchState {
-  value: string;
-  error: boolean;
-}
-export class SearchComponent extends Component<ISearchProps, ISearchState> {
-  constructor(props: ISearchProps) {
-    super(props);
-    this.state = { value: props.initQuery || '', error: false };
-    this.onInputChange = this.onInputChange.bind(this);
-    this.handleErrorButtonClick = this.handleErrorButtonClick.bind(this);
-  }
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.trim();
+    setSearchData(value);
+  };
 
-  onInputChange(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({ value: event.target.value.trim() || '' });
-  }
+  const handleClick = () => {
+    dispatch(setSearchValue(searchData || ''));
+  };
 
-  handleErrorButtonClick() {
-    this.setState({ error: true });
-  }
-  render() {
-    if (this.state.error) {
-      throw new Error('Error: oops!');
-    }
-    return (
-      <>
-        <div className="search-block">
-          <label htmlFor="name">Let{"'"}s try to find a character from star Wars :</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={this.state.value}
-            onChange={this.onInputChange}
-          />
-          <button
-            type="button"
-            title="search!"
-            onClick={() => {
-              this.props.queryChanged(this.state);
-            }}
-          >
-            Search
-          </button>
-        </div>
-        <button
-          className="error-button"
-          type="button"
-          title="click to get error"
-          onClick={this.handleErrorButtonClick}
-        >
-          Error
-        </button>
-      </>
-    );
-  }
-}
+  return (
+    <div className="search-block">
+      <label htmlFor="name">Let{"'"}s try to find a BEER:</label>
+      <input type="text" id="name" name="name" value={searchData} onChange={handleChange} />
+      <button type="button" title="search!" onClick={handleClick}>
+        Search
+      </button>
+    </div>
+  );
+};
