@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1d1d3b7e-5f30-484d-b017-5076c8e2c9ba" name="Changes" comment="feat: update tests">
+      <change beforePath="$PROJECT_DIR$/.eslintrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.husky/pre-commit" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.husky/pre-push" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vite/deps_temp_7d754534/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/react.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/card-list.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/card-list.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/card.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/card.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/item.component.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/not-found-page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/not-found-page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pagination.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pagination.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/search.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/search.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/scroll-to-top.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/scroll-to-top.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/http.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/local-storage.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/hooks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/hooks.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/slices/card-api.slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/slices/card-api.slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/slices/card.slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/slices/card.slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/card.component.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/card.component.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vite-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.node.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vite.config.ts" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2XwoLUvxUWCJeNPsCBqIH9wXnl4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/next/test&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\react-epam\\star-wars\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\react-epam\\star-wars\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\react-epam\star-wars\src" />
+      <recent name="C:\react-epam\star-wars" />
+      <recent name="C:\react-epam\star-wars\src\store\slices" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.dev">
+    <configuration name="Error Boundary" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/tests/error-boundary.component.test.tsx" />
+      <test-names>
+        <test-name value="Error Boundary" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="NotFoundPage" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/tests/not-found-page.test.tsx" />
+      <test-names>
+        <test-name value="NotFoundPage" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="PaginationComponent" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/tests/pagination.component.test.tsx" />
+      <test-names>
+        <test-name value="PaginationComponent" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="PaginationComponent.options are correct in select" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/tests/pagination.component.test.tsx" />
+      <test-names>
+        <test-name value="PaginationComponent" />
+        <test-name value="options are correct in select" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.dev" />
+        <item itemvalue="Vitest.PaginationComponent.options are correct in select" />
+        <item itemvalue="Vitest.PaginationComponent" />
+        <item itemvalue="Vitest.NotFoundPage" />
+        <item itemvalue="Vitest.Error Boundary" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1d1d3b7e-5f30-484d-b017-5076c8e2c9ba" name="Changes" comment="" />
+      <created>1699549446963</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1699549446963</updated>
+      <workItem from="1699549448509" duration="619000" />
+      <workItem from="1699714697836" duration="5829000" />
+      <workItem from="1699721574873" duration="3572000" />
+      <workItem from="1699801257874" duration="23148000" />
+      <workItem from="1699982198967" duration="20322000" />
+      <workItem from="1700402094941" duration="4778000" />
+      <workItem from="1700413965852" duration="22327000" />
+      <workItem from="1700497674959" duration="13000" />
+      <workItem from="1700543572522" duration="9244000" />
+      <workItem from="1700684883861" duration="6311000" />
+      <workItem from="1700832050807" duration="101000" />
+      <workItem from="1701004700521" duration="980000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat: add test">
+      <option name="closed" value="true" />
+      <created>1699824198680</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1699824198680</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: add test">
+      <option name="closed" value="true" />
+      <created>1699833198930</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1699833198930</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: add test">
+      <option name="closed" value="true" />
+      <created>1699833223241</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1699833223241</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: add redux">
+      <option name="closed" value="true" />
+      <created>1700424980722</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1700424980722</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: update tests">
+      <option name="closed" value="true" />
+      <created>1700433795799</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1700433795799</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: update tests">
+      <option name="closed" value="true" />
+      <created>1700471070690</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1700471070690</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: update tests">
+      <option name="closed" value="true" />
+      <created>1700561858106</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1700561858106</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: add test" />
+    <MESSAGE value="feat: add redux" />
+    <MESSAGE value="feat: update tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: update tests" />
+  </component>
+</project>

@@ -2,8 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { IResult } from '../models/models';
 import { CardComponent } from '../components/card.component';
 import { vi } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
+
 
 vi.mock('react-router-dom', async () => {
   const actual: NonNullable<unknown> = await vi.importActual('react-router-dom');

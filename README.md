@@ -1,19 +1,36 @@
-# React + TypeScript + Vite
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-StrictMode was removed according to this article: https://github.com/facebook/react/issues/24425
+## Getting Started
 
-Points:
+First, run the development server:
 
-✔Eslint is set up, when lint command is run it doesn't produce any errors (if there are warnings score might be less) - 15 points
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-✔Prettier is set up, fix commands fixes issues - 15 points
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-✔Husky is set up, linting is run on pre-commit - 10 points
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-✔Page is split into 2 sections, top one has Search and "Search" button, main section displays the list of results from the selected api when page is opened for the first time (loader should be shown whilst app makes a call to the api) - 20 points
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-✔When user types something to the Search and clicks "Search" button, a loader is displayed and the list is changed according to the response results for a provided search term - 15 points
+## Learn More
 
-✔The search term typed into the Search is saved in the local storage when user clicks on "Search" button (check it by closing the tab and open the app in the new one - the initial call should contain previously entered search term) - 15 points
+To learn more about Next.js, take a look at the following resources:
 
-✔Application is wrapped with ErrorBoundary, which logs error to a console and shows a fallback UI. Ther should be a button to throw an error - 10 points
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

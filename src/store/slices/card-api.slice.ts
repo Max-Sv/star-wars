@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import { API_URL } from '../../config';
-import LocalStorageService from '../../services/local-storage.service';
+import { API_URL } from '@/config';
+import { HYDRATE } from 'next-redux-wrapper';
 
 export const apiCard = createApi({
   reducerPath: 'apiCard',
@@ -11,6 +11,11 @@ export const apiCard = createApi({
       return headers;
     },
   }),
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
   tagTypes: ['Cards'],
   endpoints(build) {
     return {
@@ -29,8 +34,13 @@ export const apiCard = createApi({
           if (!query) {
             return `?page=1&per_page=20`;
           }
-          LocalStorageService.setData(query);
           return `?beer_name=${query}`;
+        },
+        providesTags: ['Cards'],
+      }),
+      getCard: build.query({
+        query(id: string = '') {
+          return `${id}`;
         },
         providesTags: ['Cards'],
       }),
@@ -38,4 +48,10 @@ export const apiCard = createApi({
   },
 });
 
-export const { useFetchCardsQuery, useSearchCardsQuery } = apiCard;
+export const {
+  useFetchCardsQuery,
+  useSearchCardsQuery,
+  useGetCardQuery,
+  util: { getRunningQueriesThunk },
+} = apiCard;
+export const { getCard, fetchCards } = apiCard.endpoints;

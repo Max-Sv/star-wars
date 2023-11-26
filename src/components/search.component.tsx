@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { useSearchCardsQuery } from '../store/slices/card-api.slice';
-import { setSearchValue } from '../store/slices/card.slice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useSearchCardsQuery } from '@/store/slices/card-api.slice';
+import { setSearchValue } from '@/store/slices/card.slice';
 
 export const SearchComponent = () => {
   const searchValue = useAppSelector(({ cards }) => cards.searchValue);

@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IResult } from '../../models/models';
-import LocalStorageService from '../../services/local-storage.service';
+import { IResult } from '@/models/models';
 import { apiCard } from './card-api.slice';
 
 export interface IUrl {
   currentPage: number;
   itemPerPage: number;
+}
+
+export interface ICard {
+  loading: boolean;
+  data: IResult | null;
 }
 
 interface CardState {
@@ -14,19 +18,22 @@ interface CardState {
   error: string | null;
   searchValue: string;
   url: IUrl | null;
+  card: ICard;
 }
 
 const initialCardState: CardState = {
   data: [],
   loading: false,
   error: null,
-  searchValue: LocalStorageService.data || '',
-  url: LocalStorageService.data
-    ? null
-    : {
-        currentPage: 1,
-        itemPerPage: 20,
-      },
+  searchValue: '',
+  card: {
+    loading: false,
+    data: null,
+  },
+  url: {
+    currentPage: 1,
+    itemPerPage: 20,
+  },
 };
 
 export const cardsSlice = createSlice({
@@ -98,6 +105,17 @@ export const cardsSlice = createSlice({
       })
       .addMatcher(apiCard.endpoints?.searchCards.matchRejected, (state, action) => {
         state.loading = false;
+        state.error = action.error.message || 'An error occurred';
+      })
+      .addMatcher(apiCard.endpoints?.getCard.matchFulfilled, (state, { payload }) => {
+        state.card = { data: payload[0], loading: false };
+      })
+      .addMatcher(apiCard.endpoints?.getCard.matchPending, (state) => {
+        state.error = null;
+        state.card = { data: null, loading: true };
+      })
+      .addMatcher(apiCard.endpoints?.getCard.matchRejected, (state, action) => {
+        state.card = { ...state.card, loading: false };
         state.error = action.error.message || 'An error occurred';
       });
   },

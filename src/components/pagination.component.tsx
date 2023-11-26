@@ -1,10 +1,12 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { setCurrentPage, setItemPerPage } from '../store/slices/card.slice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { setCurrentPage, setItemPerPage } from '@/store/slices/card.slice';
 
 export const PaginationComponent = () => {
   const dispatch = useAppDispatch();
   const url = useAppSelector(({ cards }) => cards.url);
+  const isLoading = useAppSelector((state) => state.cards.loading);
+
 
   const options: { value: number; text: string }[] = [
     { value: 5, text: '5' },
@@ -19,7 +21,7 @@ export const PaginationComponent = () => {
 
   return (
     <>
-      {url ? (
+      {url && !isLoading ? (
         <>
           <div className="per-page-block">
             <label htmlFor="per-page">Items Per Page: </label>
