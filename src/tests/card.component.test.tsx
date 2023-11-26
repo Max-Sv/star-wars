@@ -1,8 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { IResult } from '../models/models';
-import { CardComponent } from '../components/card.component';
+import { IResult } from '@/models/models';
+import { CardComponent } from '@/components/card.component';
 import { vi } from 'vitest';
-
 
 vi.mock('react-router-dom', async () => {
   const actual: NonNullable<unknown> = await vi.importActual('react-router-dom');
@@ -27,11 +26,7 @@ describe('CardComponent', async () => {
   } as unknown as IResult;
 
   test('renders CardComponent correctly', () => {
-    render(
-      <MemoryRouter>
-        <CardComponent data={mockData} search="exampleSearch" />
-      </MemoryRouter>
-    );
+    render(<CardComponent data={mockData} search="exampleSearch" />);
     expect(screen.getByText('Beer Name')).toBeInTheDocument();
     expect(screen.getByText('Tagline: Tagline')).toBeInTheDocument();
     expect(screen.getByText('ABW: 5%')).toBeInTheDocument();
@@ -42,11 +37,7 @@ describe('CardComponent', async () => {
   });
 
   test('calls navigate when clicked', () => {
-    render(
-      <BrowserRouter>
-        <CardComponent data={mockData} search="exampleSearch" />
-      </BrowserRouter>
-    );
+    render(<CardComponent data={mockData} search="exampleSearch" />);
     fireEvent.click(screen.getByRole('article'));
 
     const expectedArgs = { pathname: '/item/1', search: 'exampleSearch' };

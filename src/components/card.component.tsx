@@ -1,8 +1,8 @@
-import { IResult } from '../models/models';
+import { IResult } from '@/models/models';
 import React from 'react';
 import Link from 'next/link';
 import './card-list.css';
-import useQueryParams from "@/hooks/useQueryParams";
+import useQueryParams from '@/hooks/useQueryParams';
 
 export function CardComponent({ data }: { data: IResult }) {
   const { queryParams } = useQueryParams<{
@@ -11,8 +11,8 @@ export function CardComponent({ data }: { data: IResult }) {
     per_page?: string;
   }>();
 
-  const page = queryParams?.get('page')
-  const perPage =queryParams?.get('per_page')
+  const page = queryParams?.get('page');
+  const perPage = queryParams?.get('per_page');
   return (
     <Link href={{ pathname: `/${data.id}`, query: `page=${page}&per_page=${perPage}` }}>
       <article className="card">
