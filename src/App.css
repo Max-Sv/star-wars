@@ -10,7 +10,6 @@
 section {
   box-sizing: border-box;
   width: 100%;
-  /*padding: 1rem;*/
 }
 
 .main-section {
@@ -128,7 +127,6 @@ section.survival {
     display: flex;
     justify-content: center;
   }
-
 }
 .loader {
   width: 100%;
@@ -138,7 +136,23 @@ section.survival {
 .not-found {
   display: flex;
   justify-content: center;
-  &>p {
+  & > p {
     font-size: 1.5rem;
+  }
+}
+
+.form-component {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  & > h3 {
+    width: 300px;
+    text-align: center;
+
+  }
+  & > form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
   }
 }
