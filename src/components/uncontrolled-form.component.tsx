@@ -1,58 +1,81 @@
-import { useRef } from 'react';
-import * as Yup from 'yup';
+import { FormEvent, useRef, useState } from 'react';
+import { setUserData } from '../store/slices/card.slice';
+import { ValidationError } from 'yup';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { ErrorsForm, schema } from '../models/form';
 
 export const UncontrolledFormComponent = () => {
-  const nameInputRef = useRef(null);
-  const ageInputRef = useRef(null);
-  const emailInputRef = useRef(null);
-  const passwordInputRef = useRef(null);
-  const rePasswordInputRef = useRef(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // const schema = Yup.object().shape({
-  //   username: Yup.string().required().minLength(3).maxLength(25),
-  //   email: Yup.string().email().required(),
-  //   password: Yup.string().required().minLength(8).maxLenght(25),
-  // });
-  const schema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    age: Yup.number().required('Age is required'),
-    email: Yup.string().email('Invalid email').required('Email is required'),
-    password: Yup.string().required('Password is required'),
-    confirmPassword: Yup.string()
-      .required('Confirm Password is required')
-      .oneOf([Yup.ref('passwordInputRef'), null], 'Passwords must match'),
-  });
+  const nameRef = useRef<HTMLInputElement>(null);
+  const ageRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  const maleRef = useRef<HTMLInputElement>(null);
+  const femaleRef = useRef<HTMLInputElement>(null);
+  const acceptTermsRef = useRef<HTMLInputElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const countryRef = useRef<HTMLInputElement>(null);
+  const [errors, setErrors] = useState<ErrorsForm>({});
 
-  const handleSubmit = async () => {
-    // const parsedUser = schema.cast({
-    //   name: nameInputRef.current.value,
-    //   age: ageInputRef.current.value,
-    //   email: emailInputRef.current.value,
-    //   password: passwordInputRef.current.value,
-    //   confirmPassword: rePasswordInputRef.current.value,
-    // });
-    const aaa = {
-      name: nameInputRef.current.value,
-      age: ageInputRef.current.value,
-      email: emailInputRef.current.value,
-      password: passwordInputRef.current.value,
-      confirmPassword: rePasswordInputRef.current.value,
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const name = nameRef.current?.value;
+    const age = ageRef.current?.value;
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
+    const confirmPassword = confirmPasswordRef.current?.value;
+    const gender = maleRef.current?.checked
+      ? maleRef.current.value
+      : femaleRef.current?.checked
+      ? femaleRef.current.value
+      : undefined;
+    const agreement = acceptTermsRef.current?.checked;
+    const file = fileRef.current?.files?.[0];
+    const country = countryRef.current?.value;
+    const data = {
+      country,
+      file,
+      agreement,
+      gender,
+      confirmPassword,
+      password,
+      email,
+      age,
+      name,
     };
-    // const test = schema.validate(aaa).then(console.log);
-    // alert(`Name: ${nameInputRef.current.value || ''}`);
-    try {
-      // validate
-      const res = await schema.validate(aaa, { abortEarly: false });
-      console.log('-> res', res);
-      //  ...
-    } catch (e) {
-      console.log(e.errors); // => [
-      //   'password must be at least 8 characters',
-      //   'password must contain at least 1 uppercase letter',
-      //   'password must contain at least 1 number',
-      //   'password must contain at least 1 symbol',
-      // ]
-    }
+
+    schema
+      .validate(data, { abortEarly: false })
+      .then(() => {
+        setErrors({});
+
+        const reader = new FileReader();
+        if (file) {
+          reader.readAsDataURL(file);
+          reader.onloadend = () => {
+            const loadedFile = reader.result;
+            const dispatchData = {
+              ...data,
+              file: loadedFile,
+            };
+            dispatch(setUserData(dispatchData));
+            navigate({ pathname: `/`, search: '' });
+          };
+        }
+      })
+      .catch((err: ValidationError) => {
+        const errorObj: { [key: string]: string } = {};
+        err.inner.forEach((error) => {
+          if (typeof error.path === 'string') {
+            errorObj[error.path] = error.message;
+          }
+        });
+        setErrors(errorObj);
+      });
   };
 
   return (
@@ -60,53 +83,55 @@ export const UncontrolledFormComponent = () => {
       <h3>Uncontrolled Component</h3>
       <form onSubmit={handleSubmit}>
         <label>Name :</label>
-        <input type="text" name="name" ref={nameInputRef} />
+        <input type="text" name="name" ref={nameRef} />
+        <p>{errors.name}</p>
         <label>Age :</label>
-        <input type="text" name="Age" ref={ageInputRef} />
+        <input type="number" name="Age" ref={ageRef} />
+        <p>{errors.age}</p>
         <label>Email :</label>
-        <input type="text" name="Email" ref={emailInputRef} />
+        <input type="text" name="Email" ref={emailRef} />
+        <p>{errors.email}</p>
         <label htmlFor="password">Password:</label>
-        <input type="password" name="password" ref={passwordInputRef} />
+        <input type="password" name="password" ref={passwordRef} />
+        <p>{errors.password}</p>
+
         <label htmlFor="confirmPassword">Confirm Password:</label>
         <input
           type="password"
           name="confirmPassword"
           id="confirmPassword"
-          ref={rePasswordInputRef}
+          ref={confirmPasswordRef}
         />
-        {/*<fieldset>*/}
-        {/*  <legend>Select a maintenance drone:</legend>*/}
+        <p>{errors.confirmPassword}</p>
+        <fieldset>
+          <legend>Gender:</legend>
 
-        {/*  <div>*/}
-        {/*    <input type="radio" id="huey" name="drone" value="huey" />*/}
-        {/*    <label htmlFor="huey">Huey</label>*/}
-        {/*  </div>*/}
+          <div>
+            <input type="radio" id="male" value="male" ref={maleRef} />
+            <label htmlFor="male">Male</label>
+          </div>
 
-        {/*  <div>*/}
-        {/*    <input type="radio" id="dewey" name="drone" value="dewey" />*/}
-        {/*    <label htmlFor="dewey">Dewey</label>*/}
-        {/*  </div>*/}
+          <div>
+            <input type="radio" id="female" value="female" ref={femaleRef} />
+            <label htmlFor="female">Female</label>
+          </div>
+        </fieldset>
+        <p>{errors.gender}</p>
+        <fieldset>
+          <div>
+            <input type="checkbox" id="tos" ref={acceptTermsRef} />
+            <label htmlFor="tos">I accept the terms and conditions</label>
+          </div>
+        </fieldset>
+        <p>{errors.agreement}</p>
+        <label htmlFor="fileImg">Choose a profile picture:</label>
 
-        {/*  <div>*/}
-        {/*    <input type="radio" id="louie" name="drone" value="louie" />*/}
-        {/*    <label htmlFor="louie">Louie</label>*/}
-        {/*  </div>*/}
-        {/*</fieldset>*/}
-        {/*<fieldset>*/}
-        {/*  <legend>Choose :</legend>*/}
-
-        {/*  <div>*/}
-        {/*    <input type="checkbox" id="scales" name="scales" checked />*/}
-        {/*    <label htmlFor="scales">Scales</label>*/}
-        {/*  </div>*/}
-        {/*</fieldset>*/}
-        {/*<label htmlFor="avatar">Choose a profile picture:</label>*/}
-
-        {/*<input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />*/}
+        <input type="file" id="fileImg" accept="image/png, image/jpeg" ref={fileRef} />
+        <p>{errors.file}</p>
+        <label>Country :</label>
+        <input type="text" ref={countryRef} />
+        <p>{errors.country}</p>
         <button type="submit">Submit</button>
-
-        {/*<label htmlFor="firstName">First Name:</label>*/}
-        {/*<input name="firstName" id="firstName" type="text" autoComplete="given-name" />*/}
       </form>
     </div>
   );

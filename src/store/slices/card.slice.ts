@@ -3,6 +3,18 @@ import { IResult } from '../../models/models';
 import LocalStorageService from '../../services/local-storage.service';
 import { apiCard } from './card-api.slice';
 
+export interface IUser {
+  name: string | undefined;
+  file: FileList | File;
+  age: number | string | undefined;
+  email: string | undefined;
+  gender: string | undefined;
+  country: string | undefined;
+  password: string | undefined;
+  confirmPassword: string | undefined;
+  agreement: boolean | undefined;
+}
+
 export interface IUrl {
   currentPage: number;
   itemPerPage: number;
@@ -14,6 +26,7 @@ interface CardState {
   error: string | null;
   searchValue: string;
   url: IUrl | null;
+  userData: IUser | null;
 }
 
 const initialCardState: CardState = {
@@ -21,6 +34,7 @@ const initialCardState: CardState = {
   loading: false,
   error: null,
   searchValue: LocalStorageService.data || '',
+  userData: null,
   url: LocalStorageService.data
     ? null
     : {
@@ -72,6 +86,12 @@ export const cardsSlice = createSlice({
       }),
       prepare: (payload: IUrl) => ({ payload }),
     },
+    setUserData: {
+      reducer: (state, { payload }: PayloadAction<IUser>) => ({
+        ...state,
+        userData: { ...payload },
+      }),
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -103,4 +123,5 @@ export const cardsSlice = createSlice({
   },
 });
 
-export const { setSearchValue, setCurrentPage, setItemPerPage, setUrl } = cardsSlice.actions;
+export const { setSearchValue, setCurrentPage, setItemPerPage, setUrl, setUserData } =
+  cardsSlice.actions;

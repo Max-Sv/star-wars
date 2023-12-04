@@ -7,6 +7,8 @@ export const SearchComponent = () => {
   const searchValue = useAppSelector(({ cards }) => cards.searchValue);
   const dispatch = useAppDispatch();
   const [searchData, setSearchData] = useState<string>(searchValue);
+  const userData = useAppSelector(({ cards }) => cards.userData);
+
   useSearchCardsQuery(searchValue);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +21,7 @@ export const SearchComponent = () => {
   };
 
   return (
-    <div>
+    <div className="header-nav">
       <div className="search-block">
         <label htmlFor="name">Let{"'"}s try to find a BEER:</label>
         <input type="text" id="name" name="name" value={searchData} onChange={handleChange} />
@@ -27,12 +29,20 @@ export const SearchComponent = () => {
           Search
         </button>
       </div>
-      <nav>
-        <Link to="uncontrolled-form">Uncontrolled form</Link>
-      </nav>
-      <nav>
-        <Link to="controlled-form">Controlled form</Link>
-      </nav>
+      <div className="form-nav-block">
+        <nav>
+          <Link to="controlled-form">Controlled form</Link>
+        </nav>
+        <nav>
+          <Link to="uncontrolled-form">Uncontrolled form</Link>
+        </nav>
+        {userData ? (
+          <div className="user-info">
+            <img src={userData?.file} alt="foto" />
+            <p>{userData?.name}</p>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 };

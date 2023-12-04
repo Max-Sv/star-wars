@@ -20,7 +20,7 @@ section {
   display: flex;
   justify-content: center;
   background-color: #424141;
-  height: 5rem;
+  height: 7rem;
 }
 
 .result-section {
@@ -60,22 +60,43 @@ section {
 .per-page-block {
   padding: 1rem 0 0 2rem;
 }
-.search-block {
-  width: 80%;
+
+.header-nav {
+  width: 90%;
   display: flex;
   align-items: center;
-  & > button {
-    border-radius: 0;
-    color: #2fa4a4;
+  justify-content: space-between;
+
+  .search-block {
+    & > button {
+      border-radius: 0;
+      color: #2fa4a4;
+    }
+    & > input {
+      height: 38px;
+      width: 40%;
+      font-size: 20px;
+      margin-left: 5px;
+    }
+    & > label {
+      font-size: 22px;
+    }
   }
-  & > input {
-    height: 38px;
-    width: 40%;
-    font-size: 20px;
-    margin-left: 5px;
-  }
-  & > label {
-    font-size: 22px;
+  .form-nav-block {
+    display: flex;
+    align-items: center;
+    & > nav {
+      font-size: 20px;
+      margin: 0 15px;
+    }
+    .user-info {
+      &>img {
+        height: 5rem;
+      }
+      &>p {
+        margin: 2px 0 0 0;
+      }
+    }
   }
 }
 
@@ -148,11 +169,14 @@ section.survival {
   & > h3 {
     width: 300px;
     text-align: center;
-
   }
   & > form {
     width: 300px;
     display: flex;
     flex-direction: column;
+    & > p {
+      color: #c90f0f;
+      margin-top: 0;
+    }
   }
 }
