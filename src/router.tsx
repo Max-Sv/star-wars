@@ -3,6 +3,8 @@ import App from './App';
 import { ItemComponent, itemLoader } from './components/item.component';
 import { ErrorBoundaryComponent } from './components/error-boundary.component';
 import { NotFoundPage } from './components/not-found-page';
+import { UncontrolledFormComponent } from './components/uncontrolled-form.component';
+import { ControlledFormComponent } from './components/controlled-form.component';
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +18,16 @@ export const router = createBrowserRouter([
         loader: itemLoader,
       },
     ],
+  },
+  {
+    path: '/uncontrolled-form',
+    element: <UncontrolledFormComponent />,
+    ErrorBoundary: ErrorBoundaryComponent,
+  },
+  {
+    path: '/controlled-form',
+    element: <ControlledFormComponent />,
+    ErrorBoundary: ErrorBoundaryComponent,
   },
   {
     path: '*',
